@@ -1,9 +1,9 @@
 "use client";
 
-import { ReactElement } from "react";
 import { ThemeProvider } from "@mui/material";
-import darkTheme from "./dark.theme";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { ReactElement } from "react";
+import darkTheme from "./dark.theme";
 import { AuthContext } from "./auth/auth-context";
 
 interface ProviderProps {

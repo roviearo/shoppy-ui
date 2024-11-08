@@ -5,7 +5,7 @@ import NextLink from "next/link";
 import createUser from "./create-user";
 import React from "react";
 
-export default function SignUp() {
+export default function Signup() {
   const [state, formAction] = React.useActionState(createUser, { error: "" });
 
   return (
@@ -28,7 +28,7 @@ export default function SignUp() {
           error={!!state.error}
         />
         <Button type="submit" variant="contained">
-          Sign Up
+          Signup
         </Button>
         <Link component={NextLink} href="/auth/login" className="self-center">
           Login

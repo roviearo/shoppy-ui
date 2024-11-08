@@ -2,8 +2,8 @@
 
 import { Button, Link, Stack, TextField } from "@mui/material";
 import NextLink from "next/link";
-import React from "react";
 import login from "./login";
+import React from "react";
 
 export default function Login() {
   const [state, formAction] = React.useActionState(login, { error: "" });
@@ -12,26 +12,26 @@ export default function Login() {
     <form action={formAction} className="w-full max-w-xs">
       <Stack spacing={2}>
         <TextField
+          error={!!state.error}
+          helperText={state.error}
           name="email"
           label="Email"
           variant="outlined"
           type="email"
-          helperText={state.error}
-          error={!!state.error}
         />
         <TextField
+          error={!!state.error}
+          helperText={state.error}
           name="password"
           label="Password"
           variant="outlined"
           type="password"
-          helperText={state.error}
-          error={!!state.error}
         />
         <Button type="submit" variant="contained">
           Login
         </Button>
         <Link component={NextLink} href="/auth/signup" className="self-center">
-          Sign Up
+          Signup
         </Link>
       </Stack>
     </form>

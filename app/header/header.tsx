@@ -1,13 +1,12 @@
 "use client";
 
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -15,16 +14,22 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { AuthContext } from "../auth/auth-context";
+import { MouseEvent, useContext, useState } from "react";
+import Link from "next/link";
 import { routes, unauthenticatedRoutes } from "../common/constants/routes";
+import { useRouter } from "next/navigation";
 
-export default function Header() {
-  const isAuthenticated = React.useContext(AuthContext);
+interface HeaderProps {
+  logout: () => Promise<void>;
+}
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+export default function Header({ logout }: HeaderProps) {
+  const isAuthenticated = useContext(AuthContext);
+  const router = useRouter();
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
@@ -44,8 +49,8 @@ export default function Header() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={Link}
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -84,13 +89,19 @@ export default function Header() {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {page.title}
-                  </Typography>
+                <MenuItem
+                  key={page.title}
+                  onClick={() => {
+                    router.push(page.path);
+                    handleCloseNavMenu();
+                  }}
+                >
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -120,24 +131,25 @@ export default function Header() {
             {pages.map((page) => (
               <Button
                 key={page.title}
-                onClick={handleCloseNavMenu}
+                onClick={() => {
+                  router.push(page.path);
+                  handleCloseNavMenu();
+                }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page.title}
               </Button>
             ))}
           </Box>
-          {isAuthenticated && <Settings />}
+          {isAuthenticated && <Settings logout={logout} />}
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
 
-const Settings = () => {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+const Settings = ({ logout }: HeaderProps) => {
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -170,8 +182,14 @@ const Settings = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem key="Logout" onClick={handleCloseUserMenu}>
-          <Typography sx={{ textAlign: "center" }}>Logout</Typography>
+        <MenuItem
+          key="Logout"
+          onClick={async () => {
+            await logout();
+            handleCloseUserMenu();
+          }}
+        >
+          <Typography textAlign="center">Logout</Typography>
         </MenuItem>
       </Menu>
     </Box>
