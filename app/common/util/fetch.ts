@@ -2,14 +2,20 @@ import { cookies } from "next/headers";
 import { API_URL } from "../constants/api";
 import { getErrorMessage } from "./errors";
 
-const getHeaders = async () => ({
-  Cookie: (await cookies()).toString(),
-});
+const getHeaders = async () => {
+  const cookiesList = await cookies();
+
+  return {
+    Cookie: cookiesList.toString(),
+  };
+};
 
 export const post = async (path: string, formData: FormData) => {
+  const headers = await getHeaders();
+
   const res = await fetch(`${API_URL}/${path}`, {
     method: "POST",
-    headers: await { "Content-Type": "application/json", ...getHeaders() },
+    headers: { "Content-Type": "application/json", ...headers },
     body: JSON.stringify(Object.fromEntries(formData)),
   });
   const parsedRes = await res.json();
@@ -19,9 +25,11 @@ export const post = async (path: string, formData: FormData) => {
   return { error: "" };
 };
 
-export const get = async (path: string) => {
+export const get = async <T>(path: string) => {
+  const headers = await getHeaders();
+
   const res = await fetch(`${API_URL}/${path}`, {
-    headers: await { ...getHeaders() },
+    headers: { ...headers },
   });
-  return res.json();
+  return res.json() as T;
 };
