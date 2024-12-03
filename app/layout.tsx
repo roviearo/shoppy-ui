@@ -4,8 +4,8 @@ import "./globals.css";
 import { Container, CssBaseline } from "@mui/material";
 import Header from "./header/header";
 import Providers from "./providers";
-import authenticated from "./auth/authenticated";
 import logout from "./auth/logout";
+import authenticated from "./auth/actions/authenticated";
 
 const inter = Inter({ subsets: ["latin"] });
 

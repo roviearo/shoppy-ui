@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
-import authenticated from "./app/auth/authenticated";
 import { unauthenticatedRoutes } from "./app/common/constants/routes";
+import authenticated from "./app/auth/actions/authenticated";
 
 export async function middleware(request: NextRequest) {
   if (
