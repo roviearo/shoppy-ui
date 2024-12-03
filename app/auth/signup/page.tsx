@@ -1,9 +1,9 @@
 "use client";
 
+import React from "react";
 import { Button, Link, Stack, TextField } from "@mui/material";
 import NextLink from "next/link";
 import createUser from "./create-user";
-import React from "react";
 
 export default function Signup() {
   const [state, formAction] = React.useActionState(createUser, { error: "" });

@@ -2,11 +2,13 @@
   "extends": ["next/core-web-vitals", "next/typescript"],
   "plugins": ["import"],
   "rules": {
-    "import/order": [
-      "error",
-      {
-        "groups": [["builtin", "external", "internal"]]
-      }
-    ]
+    // "import/order": [
+    //   "error",
+    //   {
+    //     "groups": [["builtin", "external", "internal"]]
+    //   }
+    // ]
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
   }
 }

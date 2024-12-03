@@ -9,9 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 import { CSSProperties, useState } from "react";
-import { FormResponse } from "../../common/interfaces/form-response.interface";
 import createProduct from "../actions/create-product";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { FormResponse } from "../../common/interfaces/form-response.interface";
 
 const styles = {
   position: "absolute",

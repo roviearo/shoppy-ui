@@ -1,8 +1,8 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { API_URL } from "@/app/common/constants/api";
 import { getHeaders, post } from "../../common/util/fetch";
-import { revalidateTag } from "next/cache";
 
 export default async function createProduct(formData: FormData) {
   const response = await post("products", formData);

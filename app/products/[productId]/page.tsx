@@ -1,8 +1,8 @@
-import { Card, CardActionArea, Grid2, Stack, Typography } from "@mui/material";
-import getProduct from "./get-product";
 import Image from "next/image";
-import { getProductImage } from "../product-image";
+import { Grid2, Stack, Typography } from "@mui/material";
 import Checkout from "@/app/checkout/checkout";
+import { getProductImage } from "../product-image";
+import getProduct from "./get-product";
 
 interface SingleProductProps {
   params: { productId: string };
