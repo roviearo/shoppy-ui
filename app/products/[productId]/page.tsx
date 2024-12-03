@@ -9,8 +9,7 @@ interface SingleProductProps {
 }
 
 export default async function SingleProduct({ params }: SingleProductProps) {
-  const { productId } = await params;
-  const product = await getProduct(productId);
+  const product = await getProduct(params.productId);
 
   return (
     <Grid2 container marginBottom={"2rem"} rowGap={3}>
