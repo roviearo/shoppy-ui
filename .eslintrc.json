@@ -1,13 +1,12 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
-  // "plugins": ["import"],
-  // "rules": {
-  //   "import/order": [
-  //     "error",
-  //     {
-  //       "groups": [["builtin", "external", "internal"]],
-  //       "newlines-between": "always"
-  //     }
-  //   ]
-  // }
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "plugins": ["import"],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external", "internal"]]
+      }
+    ]
+  }
 }
