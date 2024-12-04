@@ -4,12 +4,10 @@ import Checkout from "@/app/checkout/checkout";
 import { getProductImage } from "../product-image";
 import getProduct from "./get-product";
 
-interface SingleProductProps {
-  params: { productId: number };
-}
+type Params = Promise<{ productId: string }>;
 
-export default async function SingleProduct({ params }: SingleProductProps) {
-  const { productId } = await params;
+export default async function SingleProduct(props: { params: Params }) {
+  const productId = (await props.params).productId;
   const product = await getProduct(productId);
 
   return (
