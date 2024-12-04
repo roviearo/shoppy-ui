@@ -5,11 +5,12 @@ import { getProductImage } from "../product-image";
 import getProduct from "./get-product";
 
 interface SingleProductProps {
-  params: { productId: string };
+  params: { productId: number };
 }
 
 export default async function SingleProduct({ params }: SingleProductProps) {
-  const product = await getProduct(+params.productId);
+  const { productId } = await params;
+  const product = await getProduct(productId);
 
   return (
     <Grid2 container marginBottom={"2rem"} rowGap={3}>
